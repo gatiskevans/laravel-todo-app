@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -34,10 +35,12 @@ class RegisterController extends Controller
             return redirect('register');
         }
 
-        User::create($attributes);
+        $user = User::create($attributes);
 
-        session()->flash('success', 'Your account has been created.');
+        auth()->login($user);   //Logs user in
 
-        return redirect('/');
+        //session()->flash('success', 'Your account has been created.');
+
+        return redirect('/')->with('success', 'Your account has been created.');
     }
 }

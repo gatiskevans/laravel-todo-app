@@ -18,3 +18,4 @@ Route::get('task/{task}', function(Task $task)
 });
 
 Route::get('register', [RegisterController::class, 'register']);
+Route::post('register', [RegisterController::class, 'store']);

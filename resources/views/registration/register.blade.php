@@ -4,8 +4,10 @@
     <h1>Register</h1>
 
     <form action="/register" method="post">
-        <label for="username">Username</label><br/>
-        <input name="username" id="username" type="text"/><br/>
+        @csrf
+
+        <label for="name">Username</label><br/>
+        <input name="name" id="name" type="text"/><br/>
 
         <label for="email">Email</label><br/>
         <input name="email" id="email" type="email"/><br/>
@@ -22,5 +24,8 @@
         <br/>
         <input type="submit" value="Register"/>
     </form>
+
+    <br/>
+    <a href="/">Go Back</a>
 
 @endsection

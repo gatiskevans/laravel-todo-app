@@ -7,4 +7,7 @@
         <a href="task/{{ $task->id }}">{{ $task->task }}</a><br/>
     @endforeach
 
+    <br/>
+    <a href="/register">Register</a>
+
 @endsection

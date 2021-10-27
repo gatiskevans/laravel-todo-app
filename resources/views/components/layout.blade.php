@@ -7,5 +7,11 @@
 
     @yield('contents')
 
+    @if (session()->has('success'))
+        <div style="color: green">
+            {{ session()->get('success') }}
+        </div>
+    @endif
+
 </body>
 </html>

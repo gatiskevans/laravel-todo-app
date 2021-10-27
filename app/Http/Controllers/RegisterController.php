@@ -18,14 +18,25 @@ class RegisterController extends Controller
     public function store(): RedirectResponse
     {
         $attributes = request()->validate([
-            'name' => ['required'],
-            'email' => ['required', 'email'],
-            'email_verify' => ['required', 'email'],
-            'password' => ['required', 'min:6'],
-            'password_verify' => ['required', 'min:6']
+            'name' => ['required', 'min:3', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],  //can also be written as Rule::unique('users', 'email');
+            'email_verify' => ['required', 'email', 'max:255'],
+            'password' => ['required', 'min:6', 'max:255'],
+            'password_verify' => ['required', 'min:6', 'max:255']
         ]);
 
+        if
+        (
+            $attributes['password'] !== $attributes['password_verify'] ||
+            $attributes['email'] !== $attributes['email_verify']
+        )
+        {
+            return redirect('register');
+        }
+
         User::create($attributes);
+
+        session()->flash('success', 'Your account has been created.');
 
         return redirect('/');
     }

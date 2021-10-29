@@ -39,8 +39,6 @@ class RegisterController extends Controller
 
         auth()->login($user);   //Logs user in
 
-        //session()->flash('success', 'Your account has been created.');
-
         return redirect('/')->with('success', 'Your account has been created.');
     }
 }

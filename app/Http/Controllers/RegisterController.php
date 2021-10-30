@@ -30,16 +30,13 @@ class RegisterController extends Controller
         (
             $attributes['password'] !== $attributes['password_verify'] ||
             $attributes['email'] !== $attributes['email_verify']
-        )
-        {
+        ) {
             return redirect('register');
         }
 
         $user = User::create($attributes);
 
         auth()->login($user);   //Logs user in
-
-        //session()->flash('success', 'Your account has been created.');
 
         return redirect('/')->with('success', 'Your account has been created.');
     }

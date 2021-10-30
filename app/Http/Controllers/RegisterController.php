@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
-use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -20,7 +17,7 @@ class RegisterController extends Controller
     {
         $attributes = request()->validate([
             'name' => ['required', 'min:3', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],  //can also be written as Rule::unique('users', 'email');
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'email_verify' => ['required', 'email', 'max:255'],
             'password' => ['required', 'min:6', 'max:255'],
             'password_verify' => ['required', 'min:6', 'max:255']
@@ -36,7 +33,7 @@ class RegisterController extends Controller
 
         $user = User::create($attributes);
 
-        auth()->login($user);   //Logs user in
+        auth()->login($user);
 
         return redirect('/')->with('success', 'Your account has been created.');
     }

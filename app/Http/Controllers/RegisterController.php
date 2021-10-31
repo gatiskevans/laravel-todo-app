@@ -17,19 +17,24 @@ class RegisterController extends Controller
     {
         $attributes = request()->validate([
             'name' => ['required', 'min:3', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                'unique:users,email',
+                'required_with:email_verify',
+                'same:email_verify'
+            ],
             'email_verify' => ['required', 'email', 'max:255'],
-            'password' => ['required', 'min:6', 'max:255'],
+            'password' => [
+                'required',
+                'min:6',
+                'max:255',
+                'required_with:password_confirmation',
+                'same:password_confirmation'
+            ],
             'password_verify' => ['required', 'min:6', 'max:255']
         ]);
-
-        if
-        (
-            $attributes['password'] !== $attributes['password_verify'] ||
-            $attributes['email'] !== $attributes['email_verify']
-        ) {
-            return redirect('register');
-        }
 
         $user = User::create($attributes);
 
